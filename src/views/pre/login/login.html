@@ -1,0 +1,26 @@
+<div class="columns bg-grad">
+  <div class="column col-12">
+    <div class="card">
+      <div class="card-image text-center">
+        <img class="imageRotateHorizontal" :src="iLogo" style="margin-top: 20px;">
+      </div>
+      <div class="card-header">
+        <div class="card-title h5">Silahkan Login</div>
+        <div class="card-subtitle">Pastikan Username / Email dan Password Anda Benar</div>
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <label class="form-label" >Username / Email</label>
+          <input v-model="username" class="form-input" type="text" placeholder="Username / Email">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input v-model="password" class="form-input" type="password" placeholder="Password">
+        </div>
+      </div>
+      <div class="card-footer">
+        <button @click="onLogin" class="btn btn-success btn-lg">Masuk</button>
+      </div>
+    </div>
+  </div>
+</div>

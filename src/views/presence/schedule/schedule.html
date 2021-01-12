@@ -1,0 +1,43 @@
+<div class="columns">
+  <div class="column col-12 card">
+    <div class="card-image">
+      <img :src="iBgCard" style="width: 100%">
+    </div>
+    <div v-if="cTime" class="toast toast-primary text-center">
+      <span class="icon icon-time"></span> {{cTime.getDate()}} {{$parsemi.today().hMonth}} <b>{{String(cTime.getHours()).padStart(2, '0')}}:{{String(cTime.getMinutes()).padStart(2, '0')}}</b>
+    </div>
+    <div class="card-header">
+      <div class="card-title h5">Jadwal Hari Ini</div>
+      <div class="card-subtitle text-primary">{{user.name}}</div>
+    </div>
+    <div class="card-body">
+      <div class="tile tile-centered" v-for="(item, index) in schedules" :key="index">
+        <div class="tile-content">
+          <div v-if="item.subject" class="tile-title text-bold">{{item.subject.name}}</div><small v-if="item.room" class="tile-subtitle text-primary">{{item.room.name}} ({{item.hourStart}}-{{item.hourEnd}})</small>
+        </div>
+        <div class="tile-action">
+          <div v-if="$parsemi.isPos('Guru')" class="btn-group">
+            <button v-if="item.isAvailable && !isPresenced(item)" class="btn btn-success" @click="enterConfirm(item, index)">Masuk</button>
+            <button v-if="item.isAvailable && isPresenced(item)" class="btn btn-success" @click="goToPresence(index)" :disabled="!isEnter(item)">Masuk</button>
+            <div v-if="item.diff < 0" class="chip">
+              <figure class="avatar" data-initial="X"></figure><span class="text-error">{{item.diff}}</span>
+            </div>
+            <div v-if="item.eDiff <= 0" class="chip">
+              <figure class="avatar" data-initial="V"></figure>Selesai
+            </div>
+          </div>
+          <div v-if="$parsemi.isPos('Siswa')" class="btn-group">
+            <button v-if="item.isAvailable && !isPresenced(item)" class="btn btn-success" @click="getToken(item, index)">Masuk</button>
+            <button v-if="item.isAvailable && isPresenced(item)" class="btn btn-success" @click="goToPresence(index)" :disabled="!isEnter(item)">Masuk</button>
+            <div v-if="item.diff < 0" class="chip">
+              <figure class="avatar" data-initial="X"></figure><span class="text-error">{{item.diff}}</span>
+            </div>
+            <div v-if="item.eDiff <= 0" class="chip">
+              <figure class="avatar" data-initial="V"></figure>Selesai
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
